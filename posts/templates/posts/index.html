@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<body>
+ <div class="container" style = "display: block; margin-left: auto; margin-right: auto;"></div>
+  <br />
+  <h1 class="text-center">Welcome To LCP blog!!</h1>
+  <br /><br />
+  <h3>最新の投稿</h3>
+  <br />
+  {% for post in posts.all %}
+    <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
+    <br />
+    {{ post.published }}
+    <br /><br />
+    <br /><br />
+    {{ post.summry }} 
+    <br /><br />
+  {% endfor %}
+</div>
+{% endblock %}
+
+</body>
+</html>
+
