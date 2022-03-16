@@ -10,14 +10,16 @@
   <h3>最新の投稿</h3>
   <br />
   {% for post in posts.all %}
-    <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
+    <h4>
+      <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
+    </h4>
     <br />
-    {{ post.published }}
+    作成日: {{ post.created_at }} <br/>
+    編集日: {{ post.updated_at }} <br/>
+    作成者: {{ post.auther.username }} 
+    <!-- <br /><br />
     <br /><br />
-    <br /><br />
-    {{ post.summry }} 
-    {{ post.auther.username }} 
-    <br /><br />
+    {{ post.summry }}  -->
   {% endfor %}
 </div>
 {% endblock %}

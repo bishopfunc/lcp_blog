@@ -11,18 +11,15 @@
 
 <body>
 {% block body %}
- <div class = "container" style = "display: block; margin-left: auto; margin-right: auto;" >
-   <br />
     <h2>{{ post.title }}</h2>
-    {{ post.published }}  
-    {{ post.auther.username }}  
-    <br /><br />
+    作成日: {{ post.created_at }} <br/>
+    編集日: {{ post.updated_at }} <br/>
+    作成者: {{ post.auther.username }}  
     <br /><br />
 
       <!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
       <!-- {{ post.body|markdown|safe }} -->
     <div id="content"><textarea>{{ post.body }}</textarea></div>
-  </div>
 {% endblock %}
 
 {% block add_js %}
