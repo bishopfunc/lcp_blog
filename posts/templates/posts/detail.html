@@ -1,16 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load markdown_extras %}
+
 
 {% block head %}
-<script>
-  const md = function(html) {
-    const div = document.createElement("div")
-    div.innerHTML = marked(html)
-    document.body.appendChild(div)
-  }
-  </script>
-  <title>{{ post.title }}</title>
-</head>
+<title>{{ post.title }}</title>
+<link href="{% static 'mdeditor/css/editormd.min.css' %}" rel="stylesheet">
+<link href="{% static 'mdeditor/css/editormd.preview.css' %}" rel="stylesheet">
 {% endblock %}
 
 <body>
@@ -19,13 +15,43 @@
    <br />
     <h2>{{ post.title }}</h2>
     {{ post.published }}  
+    {{ post.auther.username }}  
     <br /><br />
     <br /><br />
 
-    <div style = "display: block; margin-left: auto; margin-right: auto;">
-      <script>md(`{{ post.body }}`)</script>
-    </div>
+      <!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
+      <!-- {{ post.body|markdown|safe }} -->
+    <div id="content"><textarea>{{ post.body }}</textarea></div>
   </div>
+{% endblock %}
+
+{% block add_js %}
+<script src="{% static 'mdeditor/js/jquery.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/editormd.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/marked.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/prettify.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/raphael.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/underscore.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/sequence-diagram.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/flowchart.min.js' %}"></script>
+<script src="{% static 'mdeditor/js/lib/jquery.flowchart.min.js' %}"></script>
+<script>
+$(function () {
+    // js 解析markdown
+    editormd.markdownToHTML("content", {
+        //htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        emoji           : true,
+        taskList        : true,
+        tex             : true,  // 默认不解析
+        flowChart       : true,  // 默认不解析
+        sequenceDiagram : true,  // 默认不解析
+    });
+
+    $(".reference-link").each(function (i,obj) {
+      console.log(obj)
+    })
+})
+</script>
 {% endblock %}
 </body>
 </html>
