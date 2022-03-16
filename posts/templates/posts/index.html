@@ -7,16 +7,35 @@
   <br />
   <h1 class="text-center">Welcome To LCP blog!!</h1>
   <br /><br />
-  <h3>最新の投稿</h3>
+  <h3>カテゴリー</h3>
+  {% for category in category_list %}
+    <p><a href="{% url 'category' category %}">{{ category.name }}</a></p>
+  {% endfor %}
+  <h3>タグ</h3>
+
+  {% for tag in tag_list %}
+    <p><a href="{% url 'tag' tag %}">{{ tag.name }}</a></p>
+  {% endfor %}
+  {% if category %}
+  <h3>{{ category.name }}の一覧</h3>
+  {% elif tag %}
+  <h3>{{ tag.name }}の一覧</h3>
+  {% else %}
+  <h3>最新の記事</h3>
+  {% endif %}
+
+  <p style="font-family: 'M PLUS 1', sans-serif;">フォントテスト</p>
+  <p style="font-family: 'Zen Kurenaido', sans-serif;">字体测试</p>
+  <p style="font-family: 'Inspiration', cursive;">Fonts test</p>
   <br />
-  {% for post in posts.all %}
+  {% for post in posts %}
     <h4>
       <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
     </h4>
-    <br />
     作成日: {{ post.created_at }} <br/>
     編集日: {{ post.updated_at }} <br/>
-    作成者: {{ post.auther.username }} 
+    作成者: {{ post.auther.username }} <br />
+    <br />
     <!-- <br /><br />
     <br /><br />
     {{ post.summry }}  -->

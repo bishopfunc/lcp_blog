@@ -1,7 +1,28 @@
+from unicodedata import category
 from django.db import models
 from django.utils.text import slugify
 from mdeditor.fields import MDTextField
 from django.contrib.auth.models import User
+
+class Category(models.Model):
+    name = models.CharField('カテゴリー', max_length=50)
+    
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'CATEGORY'
+
+
+class Tag(models.Model):
+    name = models.CharField('タグ', max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'TAGS'
+
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -10,12 +31,22 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=False, null=False)    
     body = MDTextField(blank=True, null=False)
     slug = models.SlugField(max_length=255, null=False, blank=False, unique=True, verbose_name='url')
-    auther = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    auther = models.ForeignKey('auth.User', on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.PROTECT, blank=True, null=True)
+    tag = models.ManyToManyField(Tag, verbose_name='Tag', blank=True, null=True)
+    relation = models.ManyToManyField('self', verbose_name='関連記事', blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = 'BLOG'
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        return super(Post,self).save(*args, **kwargs)
+
+        # print(f'Tag.all: {Tag.objects.all().__dir__}')
+        # print(f'self.tag: {self.tag.name}')
+        # relation = relation.objeccts.filter()
+        return super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

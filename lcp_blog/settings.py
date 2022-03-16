@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'posts.context.related',
             ],
         },
     },
@@ -133,6 +134,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 	
 MDEDITOR_CONFIGS = {
     'default': {
+        'width': '100% ',  # Custom edit box width
+        'height': 1000,  # Custom edit box height
         'language': 'en',
+        'lineWrapping': True
     }
 }

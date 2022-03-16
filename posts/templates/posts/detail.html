@@ -5,6 +5,7 @@
 
 {% block head %}
 <title>{{ post.title }}</title>
+<!-- md -->
 <link href="{% static 'mdeditor/css/editormd.min.css' %}" rel="stylesheet">
 <link href="{% static 'mdeditor/css/editormd.preview.css' %}" rel="stylesheet">
 {% endblock %}
@@ -20,9 +21,20 @@
       <!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
       <!-- {{ post.body|markdown|safe }} -->
     <div id="content"><textarea>{{ post.body }}</textarea></div>
+
+    <p><a href="{% url 'index' %}">トップに戻る</a></p>
+    <h2>関連記事</h2>
+    {% if post.relation.all %}
+      {% for post in post.relation.all %}
+        <p><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></p>
+      {% endfor %}
+    {% else %}
+      <p>関連記事はありません...</p>
+    {% endif %}
 {% endblock %}
 
 {% block add_js %}
+<!-- md -->
 <script src="{% static 'mdeditor/js/jquery.min.js' %}"></script>
 <script src="{% static 'mdeditor/js/editormd.min.js' %}"></script>
 <script src="{% static 'mdeditor/js/lib/marked.min.js' %}"></script>
@@ -36,7 +48,7 @@
 $(function () {
     // js 解析markdown
     editormd.markdownToHTML("content", {
-        //htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        // htmlDecode      : "style,script,iframe",  // you can filter tags decode
         emoji           : true,
         taskList        : true,
         tex             : true,  // 默认不解析

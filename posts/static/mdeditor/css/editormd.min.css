@@ -1,0 +1,16 @@
+mdeditorのフォント上書き
+.editormd,
+.editormd .CodeMirror,
+.markdown-body,
+.editormd-preview-container pre,
+.editormd-preview-container code,
+.editormd-preview-container kbd,
+.editormd-html-preview pre,
+.editormd-html-preview code,
+.editormd-html-preview kbd,
+.editormd-preview-container .sequence-diagram text,
+.editormd-preview-container .flowchart text,
+.editormd-html-preview .sequence-diagram text,
+.editormd-html-preview .flowchart text {
+  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !important;
+}
