@@ -27,18 +27,15 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="https://qiita.com/bishop_func">Qiita</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="https://github.com/bishopfunc">Github</a>
-        </li>
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
           <a class="nav-link" href="{% url 'admin:index' %}">Edit</a>
+        </li> -->
+        {% for category in category_list %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'category' category %}">{{ category.name }}</a>
         </li>
+        {% endfor %}
+  
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
