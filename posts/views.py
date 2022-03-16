@@ -7,8 +7,10 @@ from operator import and_
 
 # Create your views here.
 def index(request):
+    tag = Tag.objects.all()
     posts = Post.objects.order_by('-created_at')
-    return render(request, 'posts/index.html', {'posts': posts})
+    tag = [post.tag for post in posts]
+    return render(request, 'posts/index.html', {'tag': tag, 'posts': posts})
 
 def search(request):
     posts = Post.objects.order_by('-created_at')
@@ -55,6 +57,11 @@ def tag(request, tag):
     return render(request, 'posts/index.html', {'tag': tag, 'posts': posts})
 
 def detail(request, slug):
+    # tags = Tag.objects.all()
     post = get_object_or_404(Post, slug=slug)
+    # for tag in tags:
+    #     posts = Post.objects.filter(slug=slug, tag=tag)
+    #     for post in posts:
+    #         print(post.tag.name)
     return render(request, 'posts/detail.html', {'post': post})
 

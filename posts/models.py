@@ -1,4 +1,3 @@
-from unicodedata import category
 from django.db import models
 from django.utils.text import slugify
 from mdeditor.fields import MDTextField
@@ -43,9 +42,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
 
-        # print(f'Tag.all: {Tag.objects.all().__dir__}')
-        # print(f'self.tag: {self.tag.name}')
-        # relation = relation.objeccts.filter()
+        # tags = Tag.objects.all()
+        # instance = Post.objects.create(name = tags.name)
+        # instance.tag.add(*tags)
         return super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
