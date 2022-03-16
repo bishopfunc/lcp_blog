@@ -1,4 +1,4 @@
-/* mdeditorのフォント上書き
+/* mdeditorのフォント上書き */
 .editormd,
 .editormd .CodeMirror,
 .markdown-body,
@@ -12,8 +12,5 @@
 .editormd-preview-container .flowchart text,
 .editormd-html-preview .sequence-diagram text,
 .editormd-html-preview .flowchart text {
-  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !important;
-  font-family: 'EB Garamond', serif;
-  font-family: 'Noto Serif SC', serif;
-  font-family: 'Shippori Mincho', serif;
-} */
+  font-family: 'EB Garamond', serif !important;
+}

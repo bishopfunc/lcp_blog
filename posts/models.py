@@ -22,6 +22,11 @@ class Tag(models.Model):
     class Meta:
         verbose_name_plural = 'TAGS'
 
+FONT_CHOICES = (
+    (1, 'Noto Serif SC'),
+    (2, 'EB Garamond'),
+    (3, 'Shippori Mincho'),
+)
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -31,9 +36,10 @@ class Post(models.Model):
     body = MDTextField(blank=True, null=False)
     slug = models.SlugField(max_length=255, null=False, blank=False, unique=True, verbose_name='url')
     auther = models.ForeignKey('auth.User', on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.PROTECT, blank=True, null=True)
+    category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.PROTECT, blank=True, null=True, unique=True)
     tag = models.ManyToManyField(Tag, verbose_name='Tag', blank=True, null=True)
     relation = models.ManyToManyField('self', verbose_name='関連記事', blank=True, null=True)
+    font = models.IntegerField(choices=FONT_CHOICES, blank=True, null=True)
 
     class Meta:
         verbose_name_plural = 'BLOG'

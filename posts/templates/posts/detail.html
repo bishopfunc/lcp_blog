@@ -6,7 +6,14 @@
 {% block head %}
 <title>{{ post.title }}</title>
 <!-- md -->
-<link href="{% static 'mdeditor/css/editormd.min.css' %}" rel="stylesheet">
+{% if post.font == 1 %}
+  <link href="{% static 'mdeditor/css/font_cn.css' %}" rel="stylesheet">
+{% elif post.font == 2 %}
+  <link href="{% static 'mdeditor/css/font_en.css' %}" rel="stylesheet">
+{% elif post.font == 3 %}
+  <link href="{% static 'mdeditor/css/font_jp.css' %}" rel="stylesheet">
+{% else %}
+{% endif %}
 <link href="{% static 'mdeditor/css/editormd.preview.css' %}" rel="stylesheet">
 {% endblock %}
 
