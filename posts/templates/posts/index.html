@@ -28,6 +28,9 @@
   <p style="font-family: 'Zen Kurenaido', sans-serif;">字体测试</p>
   <p style="font-family: 'Inspiration', cursive;">Fonts test</p>
   <br />
+  {% for message in messages %}
+  <p style="font-weight: bold;">{{ message }}</p>
+  {% endfor %}
   {% for post in posts %}
     <h4>
       <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  

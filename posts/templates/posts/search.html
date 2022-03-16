@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<body>
+  {% for message in messages %}
+  <p style="font-weight: bold;">{{ message }}</p>
+  {% endfor %}
+  {% for post in posts %}
+    <h4>
+      <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
+    </h4>
+    作成日: {{ post.created_at }} <br/>
+    編集日: {{ post.updated_at }} <br/>
+    作成者: {{ post.auther.username }} <br />
+    <br />
+  {% endfor %}
+</div>
+{% endblock %}
+
+</body>
+</html>
+
