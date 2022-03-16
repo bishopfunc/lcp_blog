@@ -4,13 +4,14 @@ from django.db.models import Q
 from django.contrib import messages
 from functools import reduce
 from operator import and_
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
-    tag = Tag.objects.all()
-    posts = Post.objects.order_by('-created_at')
-    tag = [post.tag for post in posts]
-    return render(request, 'posts/index.html', {'tag': tag, 'posts': posts})
+    # tag = Tag.objects.all()
+    posts = Post.objects.order_by('-created_at').filter(draft_flg=False)
+    # tag = [post.tag for post in posts]
+    return render(request, 'posts/index.html', {'posts': posts})
 
 def search(request):
     posts = Post.objects.order_by('-created_at')
@@ -58,10 +59,18 @@ def tag(request, tag):
 
 def detail(request, slug):
     # tags = Tag.objects.all()
-    post = get_object_or_404(Post, slug=slug)
+    if request.user.is_authenticated: #管理者なら全てを表示
+        post = get_object_or_404(Post, slug=slug)
+    else:
+        post = get_object_or_404(Post, slug=slug, draft_flg=False) #一般ユーザーなら下書きでないものを表示
     # for tag in tags:
     #     posts = Post.objects.filter(slug=slug, tag=tag)
     #     for post in posts:
     #         print(post.tag.name)
     return render(request, 'posts/detail.html', {'post': post})
+
+@login_required
+def draft(request):
+    draft = Post.objects.filter(draft_flg=True)
+    return render(request, 'posts/draft.html', {'draft': draft})
 

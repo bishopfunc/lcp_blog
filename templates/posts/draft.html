@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<body>
+ <div class="container" style = "display: block; margin-left: auto; margin-right: auto;"></div>
+  <br />
+  <h1 class="text-center">This is draft page. Only superuser can access this page.</h1>
+  <br /><br />
+
+  <h3>下書きの記事</h3>
+  {% for post in draft %}
+    <h4>
+      <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
+    </h4>
+    作成日: {{ post.created_at }} <br/>
+    編集日: {{ post.updated_at }} <br/>
+    作成者: {{ post.auther.username }} <br />
+    <!-- タグ: {{ post.tag.name }} <br /> -->
+    <br />
+  {% endfor %}
+</div>
+{% endblock %}
+
+</body>
+</html>
+

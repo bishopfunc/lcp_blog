@@ -1,3 +1,5 @@
+from tkinter.tix import Balloon
+from xmlrpc.client import Boolean
 from django.db import models
 from django.utils.text import slugify
 from mdeditor.fields import MDTextField
@@ -40,6 +42,7 @@ class Post(models.Model):
     tag = models.ManyToManyField(Tag, verbose_name='Tag', blank=True, null=True)
     relation = models.ManyToManyField('self', verbose_name='関連記事', blank=True, null=True)
     font = models.IntegerField(choices=FONT_CHOICES, blank=True, null=True)
+    draft_flg = models.BooleanField(default=False, blank=False, null=False, verbose_name='下書きで保存')
 
     class Meta:
         verbose_name_plural = 'BLOG'
