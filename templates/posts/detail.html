@@ -2,44 +2,54 @@
 {% load static %}
 {% load markdown_extras %}
 
-
-{% block head %}
-<title>{{ post.title }}</title>
-<!-- md -->
-{% if post.font == 1 %}
-  <link href="{% static 'mdeditor/css/font_cn.css' %}" rel="stylesheet">
-{% elif post.font == 2 %}
-  <link href="{% static 'mdeditor/css/font_en.css' %}" rel="stylesheet">
-{% elif post.font == 3 %}
-  <link href="{% static 'mdeditor/css/font_jp.css' %}" rel="stylesheet">
-{% else %}
-{% endif %}
-
-<link href="{% static 'mdeditor/css/editormd.preview.css' %}" rel="stylesheet">
+{% block head_title %}{{ post.title }}{% endblock %}
+{% block ogp %}
+<meta property="og:title" content="{{ post.title }} - 乱読プログラマーの技術ブログ">
 {% endblock %}
 
-<body>
+
+<!-- md -->
+<!-- {% block head %}
+  {% if post.font == 1 %}
+    <link href="{% static 'mdeditor/css/font_cn.css' %}" rel="stylesheet">
+  {% elif post.font == 2 %}
+    <link href="{% static 'mdeditor/css/font_en.css' %}" rel="stylesheet">
+  {% elif post.font == 3 %}
+    <link href="{% static 'mdeditor/css/font_jp.css' %}" rel="stylesheet">
+  {% else %}
+    <link href="{% static 'mdeditor/css/editormd.min.css' %}" rel="stylesheet">
+  {% endif %}
+{% endblock %} -->
+
 {% block body %}
-    <h2>{{ post.title }}</h2>
-    作成日: {{ post.created_at }} <br/>
-    編集日: {{ post.updated_at }} <br/>
-    作成者: {{ post.auther.username }}  <br/>
-    <!-- タグ: {{ post.tag.name }}   -->
-    <br /><br />
+    <div>
+      {{ post.created_at | date:"Y-m-j"}} <br/>
+      <h1 style="font-weight: bold;">{{ post.title }}</h1> 
+      {% for tag in post.tags.all %}   
+        <a href="{% url 'tag' tag %}" class="badge badge-info">{{ tag.name }}</a>
+      {% endfor %}
+      <br /><br /><br />
+    </div>
 
       <!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
       <!-- {{ post.body|markdown|safe }} -->
     <div id="content"><textarea>{{ post.body }}</textarea></div>
 
-    <p><a href="{% url 'index' %}">トップに戻る</a></p>
-    <h2>関連記事</h2>
-    {% if post.relation.all %}
+    <div style="padding: 20px;">
+      <!-- Twitter Share -->
+      <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-show-count="false">Tweet</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+      {% if post.relation.all %}
+      <h2>関連記事</h2>
       {% for post in post.relation.all %}
-        <p><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></p>
+      <p><a href="{% url 'detail' post.slug %}">{{ post.title }}</a></p>
       {% endfor %}
-    {% else %}
-      <p>関連記事はありません...</p>
-    {% endif %}
+      {% endif %}
+
+      {% include 'posts/back_top_btn.html' %}
+
+    </div>
 {% endblock %}
 
 {% block add_js %}
@@ -71,5 +81,4 @@ $(function () {
 })
 </script>
 {% endblock %}
-</body>
-</html>
+

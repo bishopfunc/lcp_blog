@@ -30,7 +30,7 @@ def search(request):
                 q_list += i
 
         query = reduce(
-                    and_, [Q(title__icontains=q) | Q(category__name__icontains=q) | Q(tag__name__icontains=q) for q in q_list]
+                    and_, [Q(title__icontains=q) | Q(category__name__icontains=q) | Q(tags__name__icontains=q) for q in q_list]
                 )
                 # fieldなら階層ありでもいける
 
@@ -42,7 +42,7 @@ def search(request):
             messages.success(request, f'「{keyword}」の検索結果')
             messages.success(request, f'記事が見つかりませんでした')
 
-        return render(request, 'posts/search.html', {'posts': posts})
+        return render(request, 'posts/search.html', {'posts': posts, 'keyword': keyword})
 
     return redirect('index') #keywordが空の場合はindexにリダイレクト
 
@@ -50,12 +50,12 @@ def search(request):
 def category(request, category):
     category = Category.objects.get(name=category)
     posts = Post.objects.filter(category=category)
-    return render(request, 'posts/index.html', {'category': category, 'posts': posts})
+    return render(request, 'posts/tag_category.html', {'category': category, 'posts': posts})
 
 def tag(request, tag):
-    tag = Tag.objects.get(name=tag)
-    posts = Post.objects.filter(tag=tag)
-    return render(request, 'posts/index.html', {'tag': tag, 'posts': posts})
+    tags = Tag.objects.get(name=tag)
+    posts = Post.objects.filter(tags=tags)
+    return render(request, 'posts/tag_category.html', {'tag': tags, 'posts': posts})
 
 def detail(request, slug):
     # tags = Tag.objects.all()
@@ -74,3 +74,18 @@ def draft(request):
     draft = Post.objects.filter(draft_flg=True)
     return render(request, 'posts/draft.html', {'draft': draft})
 
+def about(request):
+    return render(request, 'posts/about.html')
+
+def tag_for_about(request, tag):
+    tag = Tag.objects.get(tag=tag)
+    return render(request, 'posts/tag_for_about.html', {'tag': tag})
+
+def tag_list(request):
+    return render(request, 'posts/tag_list.html')
+
+def contact(request):
+    return render(request, 'posts/contact.html')
+
+def top_img(request, text='Welcome To bishopfunc Blog!!'):
+    return render(request, 'posts/top_umg.html', {'text': text})

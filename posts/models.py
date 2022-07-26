@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField('カテゴリー', max_length=50)
+    text = models.CharField('説明', max_length=100, blank=True)
     
     def __str__(self):
         return self.name
@@ -17,6 +18,7 @@ class Category(models.Model):
 
 class Tag(models.Model):
     name = models.CharField('タグ', max_length=50)
+    text = models.CharField('説明', max_length=100, blank=True)
 
     def __str__(self):
         return self.name
@@ -33,13 +35,13 @@ FONT_CHOICES = (
 class Post(models.Model):
     title = models.CharField(max_length=100)
     # image = models.ImageField(upload_to='media/', blank=True, null=False)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False, blank=False, null=False)
+    created_at = models.DateTimeField(editable=True, blank=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=False, null=False)    
     body = MDTextField(blank=True, null=False)
     slug = models.SlugField(max_length=255, null=False, blank=False, unique=True, verbose_name='url')
     auther = models.ForeignKey('auth.User', on_delete=models.PROTECT)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.PROTECT, blank=True, null=True, unique=True)
-    tag = models.ManyToManyField(Tag, verbose_name='Tag', blank=True, null=True)
+    tags = models.ManyToManyField(Tag, verbose_name='Tag', blank=True, null=True, related_name='posts')
     relation = models.ManyToManyField('self', verbose_name='関連記事', blank=True, null=True)
     font = models.IntegerField(choices=FONT_CHOICES, blank=True, null=True)
     draft_flg = models.BooleanField(default=False, blank=False, null=False, verbose_name='下書きで保存')

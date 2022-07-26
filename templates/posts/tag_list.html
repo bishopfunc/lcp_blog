@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %} Tags | 乱読プログラマーの技術ブログ {% endblock %}
+{% block ogp %}
+<meta property="og:title" content="Tags - 乱読プログラマーの技術ブログ">
+{% endblock %}
+
+{% block body %}
+<span style="font-weight: bold;">タグ: </span>
+{% for tag in tag_list %}
+  <a href="{% url 'tag' tag %}" class="badge badge-info">{{ tag.name }}</a>
+{% endfor %}
+<br/><br/>
+<span style="font-weight: bold;">カテゴリー: </span>
+{% for category in category_list %}
+  <a href="{% url 'category' category %}" class="btn btn-outline-dark">{{ category.name }}</a>
+{% endfor %} 
+{% endblock %}

@@ -1,4 +1,4 @@
-/* mdeditorのフォント上書き
+p,
 .editormd,
 .editormd .CodeMirror,
 .markdown-body,
@@ -12,8 +12,17 @@
 .editormd-preview-container .flowchart text,
 .editormd-html-preview .sequence-diagram text,
 .editormd-html-preview .flowchart text {
-  font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !important;
-  font-family: 'EB Garamond', serif;
-  font-family: 'Noto Serif SC', serif;
-  font-family: 'Shippori Mincho', serif;
-} */
+  font-family: YakuHanJP, kozuka-gothic-pr6n, sans-serif !important;
+  font-size: 16px !important;
+}
+h1, h2, h3, div:not(.title_date_tags) {
+  font-family: YakuHanJP, kozuka-gothic-pr6n, sans-serif !important;
+}
+
+h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+input, button, .copyright, .navbar, .nav-link, .navbar-brand {
+  font-family: YakuHanJP, kozuka-gothic-pr6n, sans-serif !important;
+}

@@ -1,0 +1,24 @@
+img {
+  width: 300px !important;
+  height: auto !important;
+}
+
+.btn-circle.btn-lg {
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+  padding:0;
+  /* box-sizing: border-box; */
+  cursor: pointer;
+}
+
+.btn-holder {
+  width: 300px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: 1px solid #0000;
+  display: inline-flex;
+  justify-content: space-between;
+}

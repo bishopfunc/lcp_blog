@@ -1,23 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body %}
-<body>
-  {% for message in messages %}
-  <p style="font-weight: bold;">{{ message }}</p>
-  {% endfor %}
-  {% for post in posts %}
-    <h4>
-      <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
-    </h4>
-    作成日: {{ post.created_at }} <br/>
-    編集日: {{ post.updated_at }} <br/>
-    作成者: {{ post.auther.username }} <br />
-    <br />
-  {% endfor %}
-</div>
+{% block head_title %}検索結果: {{ keyword }} | 乱読プログラマーの技術ブログ{% endblock %}
+{% block ogp %}
+<meta property="og:title" content="検索結果: {{ keyword }} - 乱読プログラマーの技術ブログ">
 {% endblock %}
 
-</body>
-</html>
+{% block body %}
+<br /><br />
+{% for message in messages %}
+<p style="font-weight: bold;">{{ message }}</p>
+{% endfor %}
+
+<!-- タグ、日付、タイトル -->
+{% include 'posts/title_date_tags.html' %}
+
+<!-- トップに戻るボタン -->
+{% include 'posts/back_top_btn.html' %}
+
+
+{% endblock %}
+
 

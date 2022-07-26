@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %} About | 乱読プログラマーの技術ブログ{% endblock %}
+{% block ogp %}
+<meta property="og:title" content="About - 乱読プログラマーの技術ブログ">
+{% endblock %}
+
+{% block body %}
+<!-- トップ画像、タイトル -->
+{% include 'posts/top_img.html' with text='乱読プログラマーの技術ブログ' %}
+<br /><br />
+
+<div style="margin: auto; display: block; width: 600px; max-width: 100%;">
+  <p>
+    情報系の大学2年生です. Githubアカウントは<a href="https://github.com/bishopfunc">bishopfunc</a>.
+    アプリ開発、低レイヤー、ジェネラティブアート、強化学習、神経科学、バイオインフォマティクスなど様々な分野に興味があります. 技術書を積むことと読むことと積むことが好きです. 読んだ本の書評、ハッカソンやインターンの体験記を中心に公開しています. 本を買う前やイベントに参加する前の参考になれるような記事を心がけています. もしあなたのお役に立てたのであれば、何か応援してくれると嬉しいです. <a href="https://www.amazon.jp/hz/wishlist/ls/3KIQ37R5L7MTD?ref_=wl_share" style="text-decoration: none;">欲しい技術書</a>←
+  </p>
+  <div style="text-align: center;">
+    <br />
+    <a href="https://www.buymeacoffee.com/bishopfunc"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=bishopfunc&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+  </div>
+</div>
+
+
+{% endblock %}

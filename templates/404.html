@@ -1,3 +1,11 @@
-<h1>このページは利用できません</h1>
-<p>アクセスできないURLか、ページが削除されています。</p>
-<p><a href="/">トップページに戻る</a></p>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<h2>このページは利用できません</h2>
+<p>アクセスできないURLか、ページが削除されています</p>
+
+<!-- トップに戻るボタン -->
+{% include 'posts/back_top_btn.html' %}
+
+{% endblock %}

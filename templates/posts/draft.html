@@ -1,27 +1,23 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block body %}
-<body>
- <div class="container" style = "display: block; margin-left: auto; margin-right: auto;"></div>
-  <br />
-  <h1 class="text-center">This is draft page. Only superuser can access this page.</h1>
-  <br /><br />
-
-  <h3>下書きの記事</h3>
-  {% for post in draft %}
-    <h4>
-      <a href="{% url 'detail' post.slug %}">{{ post.title }}</a>  
-    </h4>
-    作成日: {{ post.created_at }} <br/>
-    編集日: {{ post.updated_at }} <br/>
-    作成者: {{ post.auther.username }} <br />
-    <!-- タグ: {{ post.tag.name }} <br /> -->
-    <br />
-  {% endfor %}
-</div>
+{% block head_title %}編集中の記事 | 乱読プログラマーの技術ブログ{% endblock %}
+{% block ogp %}
+<!-- <meta property="og:title" content="乱読プログラマーの技術ブログ"> -->
 {% endblock %}
 
-</body>
-</html>
+{% block body %}
+  <!-- <h1 class="text-center">This is draft page. <br />Only superuser can access it.</h1> -->
+
+  <h2>編集中の記事</h2>
+  {% for post in draft %}
+    {{ post.created_at | date:"Y-m-j"}} <br/>
+    <h4><a href="{% url 'detail' post.slug %}" style="text-decoration: none; font-weight: bold; color: black;">{{ post.title }}</a></h4> 
+    {% for tag in post.tags.all %}   
+      <a href="{% url 'tag' tag %}" class="badge badge-info">{{ tag.name }}</a>
+    {% endfor %}
+    <br /><br />
+  {% endfor %}
+{% endblock %}
+
 
