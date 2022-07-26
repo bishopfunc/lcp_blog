@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
 def index(request):
     posts = Post.objects.order_by('-created_at').filter(draft_flg=False)
-    paginator = Paginator(posts, 1)
+    paginator = Paginator(posts, 10)
     page = request.GET.get('page', 1)
     try:
         pages = paginator.page(page)
