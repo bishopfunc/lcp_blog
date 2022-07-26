@@ -1,9 +1,11 @@
-from tkinter.tix import Balloon
-from xmlrpc.client import Boolean
+
+from typing_extensions import Self
 from django.db import models
 from django.utils.text import slugify
 from mdeditor.fields import MDTextField
 from django.contrib.auth.models import User
+from datetime import datetime
+import pykakasi
 
 class Category(models.Model):
     name = models.CharField('カテゴリー', max_length=50)
@@ -32,14 +34,17 @@ FONT_CHOICES = (
     (3, 'Shippori Mincho'),
 )
 
+
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     # image = models.ImageField(upload_to='media/', blank=True, null=False)
-    created_at = models.DateTimeField(editable=True, blank=False, null=False)
+    created_at = models.DateTimeField(default=datetime.now, editable=True, blank=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=False, null=False)    
     body = MDTextField(blank=True, null=False)
-    slug = models.SlugField(max_length=255, null=False, blank=False, unique=True, verbose_name='url')
-    auther = models.ForeignKey('auth.User', on_delete=models.PROTECT)
+    slug = models.SlugField(max_length=255, null=False, blank=True, unique=True, verbose_name='url')
+    auther = models.ForeignKey('auth.User', on_delete=models.PROTECT, default=1)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.PROTECT, blank=True, null=True, unique=True)
     tags = models.ManyToManyField(Tag, verbose_name='Tag', blank=True, null=True, related_name='posts')
     relation = models.ManyToManyField('self', verbose_name='関連記事', blank=True, null=True)
@@ -50,12 +55,15 @@ class Post(models.Model):
         verbose_name_plural = 'BLOG'
 
     def save(self, *args, **kwargs):
+        # slugがないときはローマ字を元に自動生成
         if not self.slug:
-            self.slug = slugify(self.title)
-
-        # tags = Tag.objects.all()
-        # instance = Post.objects.create(name = tags.name)
-        # instance.tag.add(*tags)
+            kks = pykakasi.kakasi()
+            title = self.title
+            kks_dict = kks.convert(title)
+            r_title = ''
+            for kks in kks_dict:
+                r_title += kks['passport']
+            self.slug = slugify(r_title)
         return super(Post, self).save(*args, **kwargs)
 
     def __str__(self):

@@ -12,5 +12,46 @@
 <br /><br />
 
 <!-- タグ、日付、タイトル -->
-{% include 'posts/title_date_tags.html' %}
+<!-- タグ、日付、タイトル -->
+{% for post in pages %}
+  {{ post.created_at | date:"Y-m-j"}} <br/>
+  <div class="title_date_tags">
+    <h4><a href="{% url 'detail' post.slug %}" style="text-decoration: none; font-weight: bold; color: black;">{{ post.title }}</a></h4> 
+    {% for tag in post.tags.all %}   
+      <a href="{% url 'tag' tag %}" class="badge badge-info">{{ tag.name }}</a>
+    {% endfor %}
+    <br /><br />
+  </div>
+{% endfor %}
+{% if pages.has_other_pages %}
+<div style="display: flex; justify-content: center;">
+  <nav aria-label="Page navigation example">
+      <ul class="pagination m-0">
+          {% if pages.has_previous %}
+              <li><a class="page-link text-primary d-inline-block" href="?page={{ pages.previous_page_number }}"><<</a></li>
+          {% else %}
+              <li class="disabled"><div class="page-link text-secondary d-inline-block disabled" href="#"><<</div></li>
+          {% endif %}
+  
+          {% for page_num in pages.paginator.page_range %}
+              {% if page_num %}
+                  {% if page_num == pages.number %}
+                      <li class="disabled"><div class="page-link text-secondary d-inline-block disabled" href="#">{{ page_num }}</div></li>
+                  {% else %}
+                      <li><a class="page-link text-primary d-inline-block" href="?page={{ page_num }}">{{ page_num }}</a></li>
+                  {% endif %}
+              {% else %}
+                  <li class="disabled"><a class="page-link text-secondary d-inline-block text-muted" href="#">・・・</a></li>
+              {% endif %}
+          {% endfor %}
+  
+          {% if pages.has_next %}
+              <li><a class="page-link text-primary d-inline-block" href="?page={{ pages.next_page_number }}">>></a></li>
+          {% else %}
+              <li class="disabled"><div class="page-link text-secondary d-inline-block disabled" href="#">>></div></li>
+          {% endif %}
+      </ul>
+  </nav>
+</div>
+{% endif %}
 {% endblock %}

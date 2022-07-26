@@ -24,6 +24,6 @@ h1, h2, h3, h4, h5 {
   font-weight: bold;
 }
 
-input, button, .copyright, .navbar, .nav-link, .navbar-brand {
+input, button, .copyright, .navbar, .nav-link, .navbar-brand .back_top_btn {
   font-family: YakuHanJP, kozuka-gothic-pr6n, sans-serif !important;
 }

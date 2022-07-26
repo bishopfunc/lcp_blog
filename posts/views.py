@@ -5,13 +5,20 @@ from django.contrib import messages
 from functools import reduce
 from operator import and_
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def index(request):
-    # tag = Tag.objects.all()
     posts = Post.objects.order_by('-created_at').filter(draft_flg=False)
-    # tag = [post.tag for post in posts]
-    return render(request, 'posts/index.html', {'posts': posts})
+    paginator = Paginator(posts, 1)
+    page = request.GET.get('page', 1)
+    try:
+        pages = paginator.page(page)
+    except PageNotAnInteger:
+        pages = paginator.page(1)
+    except EmptyPage:
+        pages = paginator.page(1)
+    return render(request, 'posts/index.html', {'posts': posts, 'pages': pages})
 
 def search(request):
     posts = Post.objects.order_by('-created_at')
@@ -34,8 +41,9 @@ def search(request):
                 )
                 # fieldなら階層ありでもいける
 
-        posts = posts.filter(query)
+        posts = list(set(posts.filter(query))) #重複防止
         if posts:
+            print(posts)
             messages.success(request, f'「{keyword}」の検索結果')
             messages.success(request, f'{len(posts)}件の記事が見つかりました')
         else:
@@ -63,10 +71,6 @@ def detail(request, slug):
         post = get_object_or_404(Post, slug=slug)
     else:
         post = get_object_or_404(Post, slug=slug, draft_flg=False) #一般ユーザーなら下書きでないものを表示
-    # for tag in tags:
-    #     posts = Post.objects.filter(slug=slug, tag=tag)
-    #     for post in posts:
-    #         print(post.tag.name)
     return render(request, 'posts/detail.html', {'post': post})
 
 @login_required
