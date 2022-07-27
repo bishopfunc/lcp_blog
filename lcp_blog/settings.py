@@ -115,10 +115,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-if not DEBUG:
-    SECRET_KEY = os.environ['MY_SECRET_KEY']
-    import django_heroku #追加
-    django_heroku.settings(locals()) #追加
+# if not DEBUG:
+SECRET_KEY = os.environ['MY_SECRET_KEY']
+import django_heroku #追加
+django_heroku.settings(locals()) #追加
 
 
 
