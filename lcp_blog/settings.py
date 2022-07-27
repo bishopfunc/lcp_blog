@@ -1,9 +1,8 @@
 from django.contrib import messages
 import os
-import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEBUG = True
+DEBUG = False
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -115,13 +114,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-# if not DEBUG:
-SECRET_KEY = os.environ['MY_SECRET_KEY']
-import django_heroku #追加
-django_heroku.settings(locals()) #追加
+if not DEBUG:
+    SECRET_KEY = os.environ['MY_SECRET_KEY']
+    import django_heroku #追加
+    django_heroku.settings(locals()) #追加
 
-
-
+# DB
+import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
