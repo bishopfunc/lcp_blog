@@ -1,6 +1,5 @@
 from django.contrib import messages
 import os
-import cloudinary
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEBUG = False
@@ -124,6 +123,7 @@ if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
+    import cloudinary #追加
     cloudinary.config( 
         cloud_name = "hpeqmnspv", #追加
         api_key = os.environ['CLOUDINARY_API_KEY'], #追加  
