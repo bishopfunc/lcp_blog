@@ -1,5 +1,3 @@
-
-from typing_extensions import Self
 from django.db import models
 from django.utils.text import slugify
 from mdeditor.fields import MDTextField
