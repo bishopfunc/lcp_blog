@@ -19,14 +19,14 @@
 {% block body %}
 {% if category %}
 <div style="margin-top: 30px; margin-bottom: 30px;">
-  <h2 style="">{{ category.name }}の一覧</h2>
+  <!-- <h2 style="">{{ category.name }}の一覧</h2> -->
   <p><a href="/">TOP</a> > {{ category.name }} </a></p>
   <p>{{ cstegory.text }}</p>
 </div>
 {% elif tag %}
 <div style="margin-top: 30px; margin-bottom: 30px;">
   <p><a href="/">TOP</a> > {{ tag.name }} </a></p>
-  <h2 style="">{{ tag.name }}の一覧</h2>
+  <!-- <h2 style="">{{ tag.name }}の一覧</h2> -->
 </div>
 <p>{{ tag.text }}</p>
 {% endif %}
