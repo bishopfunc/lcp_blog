@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts.apps.PostsConfig',
     'mdeditor',
+    'cloudinary', # 追加
+    'cloudinary_storage', # 追加
 ]
 
 MIDDLEWARE = [
@@ -116,9 +118,14 @@ MESSAGE_TAGS = {
 }
 
 if not DEBUG:
-    SECRET_KEY = os.environ['MY_SECRET_KEY']
+    SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
+    cloudinary.config( 
+        cloud_name = "hpeqmnspv", #追加
+        api_key = os.environ['CLOUDINARY_API_KEY'], #追加  
+        api_secret = os.environ['CLOUDINARY_API_SECRET'] #追加
+    )
 
 # DB
 import dj_database_url
