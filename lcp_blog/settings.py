@@ -2,9 +2,23 @@ from django.contrib import messages
 import os
 import dj_database_url
 
-DEBUG = False
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DEBUG = False
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'name',
+        'USER': 'user',
+        'PASSWORD': '',
+        'HOST': 'host',
+        'PORT': '',
+    }
+}
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -102,28 +116,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-
-
 if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'name',
-        'USER': 'user',
-        'PASSWORD': '',
-        'HOST': 'host',
-        'PORT': '',
-    }
-}
+
 
 db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 DATABASES['default'].update(db_from_env)
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
