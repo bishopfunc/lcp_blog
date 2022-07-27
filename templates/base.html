@@ -7,6 +7,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <!-- bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- fonts -->
@@ -32,24 +33,24 @@
   {% endblock %}
 </head>
 <body>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="{% url 'index' %}">TOP</a>
+  <nav class="navbar navbar-expand-md  navbar-dark fixed-top bg-dark">
+    <h5 style=""><a class="navbar-brand" href="{% url 'index' %}">HOME</a></h5>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="true" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-collapse collapse show" id="navbarCollapse" style="">
+    <div class="navbar-collapse collapse" id="navbarCollapse" style="">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'about' %}">About</a>
+          <h5><a class="nav-link" href="{% url 'about' %}">About</a></h5>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'tag_list' %}">Tags</a>
+          <h5><a class="nav-link" href="{% url 'tag_list' %}">Tags</a></h5>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="https://sleepy-montalcini-ad16a0.netlify.app/" target="_blank">My Portfolio</a>
+          <h5><a class="nav-link" href="https://sleepy-montalcini-ad16a0.netlify.app/" target="_blank">My Portfolio</a></h5>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+          <h5><a class="nav-link" href="{% url 'contact' %}">Contact</a></h5>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search' %}">

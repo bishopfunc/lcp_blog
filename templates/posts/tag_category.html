@@ -3,7 +3,7 @@
 
 {% block head_title %}
 {% if category %} カテゴリー: {{ category.name }} | 乱読プログラマーの技術ブログ
-{% elif tag %} タグ: {{ tag.name }} | 乱読プログラマーの技術ブログ
+<!-- {% elif tag %} タグ: {{ tag.name }} | 乱読プログラマーの技術ブログ -->
 {% endif %}
 {% endblock %}
 
@@ -18,14 +18,17 @@
 
 {% block body %}
 {% if category %}
-<h3>{{ category.name }}の一覧</h3>
-<p><a href="/">TOP</a> > {{ category.name }} </a></p>
-<p>{{ cstegory.text }}</p>
+<div style="margin-top: 30px; margin-bottom: 30px;">
+  <h2 style="">{{ category.name }}の一覧</h2>
+  <p><a href="/">TOP</a> > {{ category.name }} </a></p>
+  <p>{{ cstegory.text }}</p>
+</div>
 {% elif tag %}
-<p><a href="/">TOP</a> > {{ tag.name }} </a></p>
-<h3>{{ tag.name }}の一覧</h3>
+<div style="margin-top: 30px; margin-bottom: 30px;">
+  <p><a href="/">TOP</a> > {{ tag.name }} </a></p>
+  <h2 style="">{{ tag.name }}の一覧</h2>
+</div>
 <p>{{ tag.text }}</p>
-{% else %}
 {% endif %}
 
 <!-- タグ、日付、タイトル -->

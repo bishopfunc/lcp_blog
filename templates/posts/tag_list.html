@@ -9,11 +9,11 @@
 {% block body %}
 <span style="font-weight: bold;">タグ: </span>
 {% for tag in tag_list %}
-  <a href="{% url 'tag' tag %}" class="badge badge-info">{{ tag.name }}</a>
+  {% include 'posts/tag_badge.html' %}
 {% endfor %}
 <br/><br/>
-<span style="font-weight: bold;">カテゴリー: </span>
+<!-- <span style="font-weight: bold;">カテゴリー: </span>
 {% for category in category_list %}
   <a href="{% url 'category' category %}" class="btn btn-outline-dark">{{ category.name }}</a>
-{% endfor %} 
+{% endfor %}  -->
 {% endblock %}
