@@ -2,7 +2,7 @@ from django.contrib import messages
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEBUG = False
+DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -119,7 +119,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-if not DEBUG:
+if  DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
