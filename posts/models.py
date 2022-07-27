@@ -4,6 +4,7 @@ from mdeditor.fields import MDTextField
 from django.contrib.auth.models import User
 from datetime import datetime
 import pykakasi
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField('カテゴリー', max_length=50)
