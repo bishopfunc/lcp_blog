@@ -1,4 +1,5 @@
 from django.urls import path
+# from .views import UploadView
 from posts import views
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('<slug:slug>/', views.detail, name="detail"), #/ないとエラー出る
     path('', views.index, name="index"),
+
 ]

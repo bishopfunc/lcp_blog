@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from datetime import datetime
 import pykakasi
 from cloudinary.models import CloudinaryField
+from django.core.files.uploadedfile import SimpleUploadedFile
+import re
 
 class Category(models.Model):
     name = models.CharField('カテゴリー', max_length=50)
@@ -33,12 +35,9 @@ FONT_CHOICES = (
     (3, 'Shippori Mincho'),
 )
 
-
-
-
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    # image = models.ImageField(upload_to='media/', blank=True, null=False)
+    image = models.ImageField(upload_to="images", verbose_name='画像', null=True, blank=True)
     created_at = models.DateTimeField(default=datetime.now, editable=True, blank=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=False, null=False)    
     body = MDTextField(blank=True, null=False)
@@ -63,6 +62,12 @@ class Post(models.Model):
             for kks in kks_dict:
                 r_title += kks['passport']
             self.slug = slugify(r_title)
+        
+        # match_imgs = re.findall(r'(media/editor/.*?\.png|jpg)', self.body)
+        # for img_path in match_imgs:
+        #     img = open(img_path, 'rb')
+        #     img = SimpleUploadedFile(img.name, img.read())
+        #     self.image = img
         return super(Post, self).save(*args, **kwargs)
 
     def __str__(self):

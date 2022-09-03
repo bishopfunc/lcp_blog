@@ -21,16 +21,16 @@ except ImportError:
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'localhost']
 
 INSTALLED_APPS = [
+    'posts.apps.PostsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'posts.apps.PostsConfig',
-    'mdeditor',
     'cloudinary', # 追加
     'cloudinary_storage', # 追加
+    'mdeditor',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +91,7 @@ USE_TZ = True
 
 # media set
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # static set
@@ -104,14 +104,35 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 	
-MDEDITOR_CONFIGS = {
-    'default': {
-        'width': '100% ',  # Custom edit box width
-        'height': 600,  # Custom edit box height
-        'language': 'en',
-        'lineWrapping': True
-    }
-}
+#django-mdeditor配置  
+MDEDITOR_CONFIGS = {  
+'default':{  
+    'width': '90%',  # 自定义编辑框宽度  
+    'heigth': 1200,   # 自定义编辑框高度  
+    'toolbar': ["undo", "redo", "|",  
+                "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",  
+                #"h1", "h2", "h3", "h5", "h6", "|",  
+                "list-ul", "list-ol", "hr", "|",  
+                "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",  
+                "emoji", "html-entities", "pagebreak", "goto-line", "|",  
+                "help", #"info",  
+                "||", "uploadToCloudinary", "preview", "watch", "fullscreen"],  # 自定义编辑框工具栏  
+    'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp"],  # 图片上传格式类型  
+    'image_folder': 'editor',  # 图片保存文件夹名称  
+    'theme': 'default',  # 编辑框主题 ，dark / default  
+    'preview_theme': 'default',  # 预览区域主题， dark / default  
+    'editor_theme': 'default',  # edit区域主题，pastel-on-dark / default  
+    'toolbar_autofixed': True,  # 工具栏是否吸顶  
+    'search_replace': True,  # 是否开启查找替换   
+    'emoji': True,  # 是否开启表情功能  
+    'tex': True,  # 是否开启 tex 图表功能  
+    'flow_chart': True,  # 是否开启流程图功能  
+    'sequence': True,  # 是否开启序列图功能  
+    'watch': True,  # 实时预览  
+    'lineWrapping': True,  # 自动换行  
+    'lineNumbers': False  # 行号  
+    }  
+}  
 MESSAGE_TAGS = {
     messages.INFO: 'alert alert-info',
     messages.SUCCESS: 'alert alert-success',
@@ -129,9 +150,8 @@ if not DEBUG:
         api_key = os.environ['CLOUDINARY_API_KEY'], #追加  
         api_secret = os.environ['CLOUDINARY_API_SECRET'] #追加
     )
-
-# DB
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_from_env)
+    # DB
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
 
