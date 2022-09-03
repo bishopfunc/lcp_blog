@@ -46,7 +46,7 @@
 <script src="{% static 'mdeditor/languages/pt_BR.js' %}"></script>
 {% endif %}
 <script type="text/javascript">
-    var isUpLoadToCloudinary = true; // add
+    var isUpLoadToCloudinary = false; // add
     $(function () {
         editormd("{{ id }}-wmd-wrapper", {
             watch: {{ config.watch|lower }}, // 关闭实时预览
@@ -95,8 +95,8 @@
             toolbarCustomIcons : {  
                 uploadToCloudinary: `  
                     <select id="upload-to-place">  
-                      <option value ="cloudinary-store">Cloudinary</option>  
                       <option value ="local-store">Local</option>  
+                      <option value ="cloudinary-store">Cloudinary</option>  
                     </select>  
                 `,  
             }, // add  
@@ -161,8 +161,8 @@ function uploadImg(file,Editor){
     formData.append('content', '');
     var imageUploadURL = isUpLoadToCloudinary == true ? "/mdeditor/uploads/" : "mdeditor/uploadlocal/"
     $.ajax({
-        // url: Editor.settings.imageUploadURL,
-        url: imageUploadURL,
+        // url: imageUploadURL,
+        url: Editor.settings.imageUploadURL,
         type: 'post',
         data: formData,
         processData: false,
