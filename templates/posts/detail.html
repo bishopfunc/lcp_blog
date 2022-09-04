@@ -5,6 +5,7 @@
 {% block head_title %}{{ post.title }}{% endblock %}
 {% block ogp %}
 <meta property="og:title" content="{{ post.title }} - 乱読プログラマーの技術ブログ">
+<meta property="og:image" content="{% static '/media/{{ post.image }}' %}">
 {% endblock %}
 
 
@@ -22,41 +23,56 @@
 {% endblock %}
 
 {% block body %}
-    <div>
-      {{ post.created_at | date:"Y-m-j"}} <br/>
-      <h1 style="font-weight: bold;">{{ post.title }}</h1> 
-      {% for tag in post.tags.all %}   
-        {% include 'posts/tag_badge.html' %}
-      {% endfor %}
-      <br /><br /><br />
-    </div>
+<!-- トップ画像、タイトル -->
+<div style="width: 100%; height: 300px; 
+  background-image: url('/static/images/bookcover.png'); text-align: center;">
+  <img style="height: 300px!important; width: auto!important;" src="/media/{{ post.image }}" alt="">
+</div>
+<br /><br /><br />
+<div>
+  {{ post.created_at | date:"Y-m-j"}} <br/>
+  <h1 style="font-weight: bold;">{{ post.title }}</h1> 
+  {% for tag in post.tags.all %}   
+  {% include 'posts/tag_badge.html' %}
+  {% endfor %}
+  <br /><br />
+</div>
 
-      <!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
-      <!-- {{ post.body|markdown|safe }} -->
-    <div id="content"><textarea>{{ post.body }}</textarea></div>
+<!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
+<!-- {{ post.body|markdown|safe }} -->
 
-    <div>
-      <!-- Twitter Share -->
+<div id="content"><textarea>{{ post.body }}</textarea></div>
+
+<div>
+  
+  <div style="display: flex; margin:30px 0;">
+    <!-- Twitter Share -->
+    <div style="width: 80px!important; height: 30px!important; margin-right: 20px;">
       <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large" data-show-count="false">Tweet</a>
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-      {% if post.relation.all %}
-      <h2>関連記事</h2>
-      {% for post in post.relation.all %}
-      <div class="title_date_tags">
-        <h3><a href="{% url 'detail' post.slug %}" style="text-decoration: none; font-weight: bold; color: black;">{{ post.title }}</a></h3> 
-        {% for tag in post.tags.all %}   
-          {% include 'posts/tag_badge.html' %}
-        {% endfor %}
-        <br /><br />
-      </div>
-      {% endfor %}
-      
-      {% endif %}
-
-      {% include 'posts/back_top_btn.html' %}
-
     </div>
+
+    <!-- Buy me a coffee -->
+    <a href="https://www.buymeacoffee.com/bishopfunc" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 30px !important;width: auto !important;" ></a>
+  </div>
+
+  {% if post.relation.all %}
+  <h2>関連記事</h2>
+  {% for post in post.relation.all %}
+  <div class="title_date_tags">
+    <h3><a href="{% url 'detail' post.slug %}" style="text-decoration: none; font-weight: bold; color: black;">{{ post.title }}</a></h3> 
+    {% for tag in post.tags.all %}   
+      {% include 'posts/tag_badge.html' %}
+    {% endfor %}
+    <br /><br />
+  </div>
+  {% endfor %}
+  
+  {% endif %}
+
+  {% include 'posts/back_top_btn.html' %}
+
+</div>
 {% endblock %}
 
 {% block add_js %}
