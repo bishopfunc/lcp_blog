@@ -28,7 +28,7 @@
   background-image: url('/static/images/bookcover.png'); text-align: center;">
   <img style="height: 300px!important; width: auto!important;" src="{{ post.image.url }}" alt="">
 </div>
-<br /><br /><br />
+
 <div>
   {{ post.created_at | date:"Y-m-j"}} <br/>
   <h1 style="font-weight: bold;">{{ post.title }}</h1> 
@@ -38,8 +38,8 @@
   <br /><br />
 </div>
 
-<!-- <textarea>{ post.body|markdown|safe }}</textarea> -->
-<!-- {{ post.body|markdown|safe }} -->
+<textarea>{{ post.body|markdown|safe }}</textarea>
+{{ post.body|markdown|safe }}
 
 <div id="content"><textarea>{{ post.body }}</textarea></div>
 
@@ -90,7 +90,7 @@
 $(function () {
     // js 解析markdown
     editormd.markdownToHTML("content", {
-        // htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        htmlDecode      : "style,script,iframe",  // you can filter tags decode
         emoji           : true,
         taskList        : true,
         tex             : true,  // 默认不解析
