@@ -5,7 +5,7 @@
 {% block head_title %}{{ post.title }}{% endblock %}
 {% block ogp %}
 <meta property="og:title" content="{{ post.title }} - 乱読プログラマーの技術ブログ">
-<meta property="og:image" content="{% static '/media/{{ post.image }}' %}">
+<meta property="og:image" content="{% static '{{ post.image.url }}' %}">
 {% endblock %}
 
 
