@@ -20,6 +20,7 @@
   {% else %}
     <link href="{% static 'mdeditor/css/editormd.min.css' %}" rel="stylesheet">
   {% endif %}
+  <link href="{% static 'mdeditor/css/editormd.preview.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body %}
@@ -38,8 +39,8 @@
   <br /><br />
 </div>
 
-<textarea>{{ post.body|markdown|safe }}</textarea>
-{{ post.body|markdown|safe }}
+<!-- <textarea>{{ post.body|markdown|safe }}</textarea>
+{{ post.body|markdown|safe }} -->
 
 <div id="content"><textarea>{{ post.body }}</textarea></div>
 
