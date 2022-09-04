@@ -69,7 +69,8 @@ class Post(models.Model):
         
         # slugがないときはランダムで文字列を生成
         if not self.slug:
-            self.slug = slug_generator()
+            slug_gen = slug_generator()
+            self.slug = slugify(slug_gen)
         return super(Post, self).save(*args, **kwargs)        
         
 
