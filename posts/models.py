@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from datetime import datetime
 import pykakasi
 from cloudinary.models import CloudinaryField
+import random
+import string
 
 class Category(models.Model):
     name = models.CharField('カテゴリー', max_length=50)
@@ -33,6 +35,8 @@ FONT_CHOICES = (
     (3, 'Shippori Mincho'),
 )
 
+def slug_generator():
+    return ''.join(random.choices(string.ascii_lowercase + string.digits + string.ascii_uppercase, k=20))
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -53,15 +57,21 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         # slugがないときはローマ字を元に自動生成
+        # if not self.slug:
+        #     kks = pykakasi.kakasi()
+        #     title = self.title
+        #     kks_dict = kks.convert(title)
+        #     r_title = ''
+        #     for kks in kks_dict:
+        #         r_title += kks['passport']
+        #     self.slug = slugify(r_title)
+        # return super(Post, self).save(*args, **kwargs)
+        
+        # slugがないときはランダムで文字列を生成
         if not self.slug:
-            kks = pykakasi.kakasi()
-            title = self.title
-            kks_dict = kks.convert(title)
-            r_title = ''
-            for kks in kks_dict:
-                r_title += kks['passport']
-            self.slug = slugify(r_title)
-        return super(Post, self).save(*args, **kwargs)
+            self.slug = slug_generator()
+        return super(Post, self).save(*args, **kwargs)        
+        
 
     def __str__(self):
         return self.title
