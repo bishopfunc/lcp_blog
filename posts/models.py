@@ -4,6 +4,7 @@ from mdeditor.fields import MDTextField
 from django.contrib.auth.models import User
 from datetime import datetime
 import pykakasi
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField('カテゴリー', max_length=50)
@@ -35,7 +36,7 @@ FONT_CHOICES = (
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='media/', blank=True, null=False)
+    image = CloudinaryField(upload_to='media/', blank=True, null=False)
     created_at = models.DateTimeField(default=datetime.now, editable=True, blank=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=False, null=False)    
     body = MDTextField(blank=True, null=False)
