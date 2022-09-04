@@ -1,0 +1,24 @@
+.parent {
+  display: flex; border: rgb(199, 198, 198) solid; border-radius: 15px;
+}
+.title_date_tags {
+  width: 70%; padding: 10px;
+}
+.img_block {
+  width: 30%; border-radius: 15px; 
+  background-image: url('/static/images/bookcover.png'); text-align: center;
+}
+.img {
+  max-height: 200px!important; width: auto!important;
+}
+@media screen and (max-width: 767px){
+  .parent {
+      display: block;
+  } 
+  .title_date_tags{
+      width: 100%;
+  }
+  .img_block {
+      width: 100%;
+  }
+}

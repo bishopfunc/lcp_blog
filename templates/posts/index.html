@@ -8,33 +8,7 @@
 {% endblock %}
 {% block head %}
 <style>
-.parent {
-    display: flex; border: rgb(199, 198, 198) solid; border-radius: 15px;
-}
-.title_date_tags {
-    width: 70%; padding: 10px;
-}
-.img_block {
-    width: 30%; border-radius: 15px; 
-    background-image: url('/static/images/bookcover.png'); text-align: center;
-}
-.img {
-    max-height: 200px!important; width: auto!important;
-}
-p {
-    font-family: YakuHanJP, kozuka-gothic-pr6n, sans-serif !important;
-}
-@media screen and (max-width: 767px){
-    .parent {
-        display: block;
-    } 
-    .title_date_tags{
-        width: 100%;
-    }
-    .img_block {
-        width: 100%;
-    }
-}
+
 </style>
 {% endblock %}
 
@@ -46,8 +20,8 @@ p {
 <!-- タグ、日付、タイトル -->
 {% for post in pages %}
   {% include 'posts/title_date_tags.html' %}
+  <br /><br />
 {% endfor %}
-<br /><br />
 
 {% if pages.has_other_pages %}
 <div style="display: flex; justify-content: center;">
