@@ -21,14 +21,15 @@
   <!-- Title -->
   <title>{% block head_title %}{% endblock %}</title>
   <!-- OGP -->
-  <meta property="og:url" content="https://bishopfunc.herokuapp.com/posts/">
+  <meta property="og:url" content="https://bishopfunc.herokuapp.com/">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="乱読プログラマーの技術ブログ">
   <meta property="og:description" content="読んだ本の書評、ハッカソンやインターンの体験記を中心に公開しています">
   <meta property="og:site_name" content="乱読プログラマーの技術ブログ @bishopfunc">
-  <meta property="og:image" content="https://res.cloudinary.com/hpeqmnspv/image/upload/l_text:Sawarabi%20Gothic_50_bold:乱読プログラマーの技術ブログ,co_rgb:#BFBBBC,w_500,c_fit/v1662296508/OGP/top_s7bwnx.png">
   <meta name="twitter:card" content="summary_large_image">
-  {% block ogp %}{% endblock %}
+  {% block ogp %}
+  <meta property="og:title" content="乱読プログラマーの技術ブログ">
+  <meta property="og:image" content="https://res.cloudinary.com/hpeqmnspv/image/upload/l_text:Sawarabi%20Gothic_100_bold:乱読プログラマーの技術ブログ,co_rgb:f5f5f5,w_1500,c_fit/v1662296508/OGP/top_s7bwnx.png">
+  {% endblock %}
   
   {% block head %}
   {% endblock %}
@@ -48,7 +49,7 @@
 
       </ul>
       <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search' %}">
-        <input class="form-control mr-3" style="width: 225px;" type="search" name="keyword" placeholder="type to search ...">
+        <input class="form-control mr-3" style="width: 180px;" type="search" name="keyword" placeholder="type to search ...">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>
