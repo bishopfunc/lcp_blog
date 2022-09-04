@@ -13,7 +13,9 @@
 {% endfor %}
 
 <!-- タグ、日付、タイトル -->
-{% include 'posts/title_date_tags.html' %}
+{% for post in posts %}
+  {% include 'posts/title_date_tags.html' %}
+{% endfor %}
 
 <!-- トップに戻るボタン -->
 {% include 'posts/back_top_btn.html' %}
