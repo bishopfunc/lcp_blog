@@ -3,7 +3,9 @@ import os
 import cloudinary
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEBUG = True
+DEBUG = False
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'localhost']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -19,7 +21,6 @@ try:
 except ImportError:
     pass
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -120,7 +121,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert alert-danger',
 }
 
-if DEBUG:
+if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     import django_heroku #追加
     django_heroku.settings(locals()) #追加
