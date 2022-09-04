@@ -36,7 +36,7 @@ FONT_CHOICES = (
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
-    image = CloudinaryField('image', folder='media/', blank=True, null=False)
+    image = CloudinaryField('image', folder='media/media/', blank=True, null=False)
     created_at = models.DateTimeField(default=datetime.now, editable=True, blank=False, null=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False, blank=False, null=False)    
     body = MDTextField(blank=True, null=False)
